@@ -23,6 +23,14 @@ contract dataType {
      return live;
   }
 
+  /**
+   * @dev Function capture in JSON LD dataType and links to sources
+   * @param
+   * @param
+   * @dev .
+   * @dev .
+   * @return true bool if all the contract address is saved.
+   */
   function registerDataType (address ) returns(bool) {
 
   	return true;
@@ -32,6 +40,14 @@ contract dataType {
      return true;
   }
 
+  /**
+   * @dev Function to link to other Resolve connection to other scienceChains or other dataType within same Chain
+   * @param
+   * @param
+   * @dev .
+   * @dev .
+   * @return true bool if all the contract address is saved.
+   */
   function dataResolution (address chainConnection) public returns(bool successful) {
   	liveChains[] = chainConnection
   	return true;
