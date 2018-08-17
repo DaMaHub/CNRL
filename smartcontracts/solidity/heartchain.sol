@@ -10,7 +10,7 @@ contract heartChain {
     string [] sensors;
   }
   struct Sensor {
-    string datatype;
+    address datatype;
     string structure;
     string source;
     string tidy;
@@ -21,6 +21,7 @@ contract heartChain {
   mapping(address => uint) public hcPeers;
   Device public liveDevice;
   Sensor [] public liveSensor;
+  address dataTypeContract;
 
   // Constructor
    constructor() public {
@@ -49,8 +50,8 @@ contract heartChain {
      return liveDevice;
   }
 
-  function dataType (string hashLDfile, string hashTidy) public returns(bool successful) {
-  	liveSensor.datatype = hashLDfile;
+  function dataType (address dataTypeContract) public returns(bool successful) {
+  	liveSensor.datatype = dataTypeContract;
   	return true;
   }
 
@@ -66,11 +67,6 @@ contract heartChain {
 
   function dataTidy (string sensorID, string hashTidy) public returns(bool successful) {
   	liveSensor[sensorID].tidy = hashTidy;
-  	return true;
-  }
-
-  function dataResolution (string sensorID, string protocolupdate) public returns(bool successful) {
-  	liveSensor[sensorID].resolution = protocolupdate;
   	return true;
   }
 

@@ -4,8 +4,10 @@ contract dataType {
 
   address genesis;
   bool live;
-
+  address chainType;
+  address dataTypelink;
   mapping(address => uint) public hcPeers;
+  mapping(address => uint) public liveChains;
 
   // Constructor
    constructor() public {
@@ -21,13 +23,18 @@ contract dataType {
      return live;
   }
 
-  function registerDataType () returns(bool) {
+  function registerDataType (address ) returns(bool) {
 
   	return true;
   }
 
   function returnDataType() public constant returns(bool) {
      return true;
+  }
+
+  function dataResolution (address chainConnection) public returns(bool successful) {
+  	liveChains[] = chainConnection
+  	return true;
   }
 
   function remove() private {
