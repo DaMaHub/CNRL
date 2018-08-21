@@ -25,7 +25,7 @@ web3.eth.getBalance(addr, function (error, result) {
 web3.eth.getGasPrice()
 .then(console.log)
 
-var filepath = 'solidity/data-type.sol';
+var filepath = 'solidity/heartchain.sol';
 var input = fs.readFileSync(filepath).toString()
 // console.log(input);
 

@@ -24,6 +24,19 @@ contract dataType {
   }
 
   /**
+   * @dev Function goverance over upgrading dataType version
+   * @param
+   * @param
+   * @dev List and min. no. of sign offs before upgrade function called for the datatype.
+   * @dev When upgraded a crypto tying of version are guaranteed and sovlable.
+   * @return true bool if all the contract address is saved.
+   */
+  function hcGoverannce (address ) returns(bool) {
+
+  	return true;
+  }
+
+  /**
    * @dev Function capture in JSON LD dataType and links to sources
    * @param
    * @param
