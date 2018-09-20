@@ -1,26 +1,19 @@
 pragma solidity ^0.4.22;
 /// @title heartChain contract
+
+/* import ./damahub-community-goverance.sol */
+
 contract heartChain {
 
   address genesis;
   bool live;
-  struct Device {
-    string idenity;
-    string firmware;
-    string [] sensors;
-  }
-  struct Sensor {
-    address datatype;
-    string structure;
-    string source;
-    string tidy;
-    string resolution;
-    string [] proof;
+  address proposedDatatype
+  struct dataTypeList {
+    string name,
+    time dateAccepted
   }
 
-  mapping(address => uint) public hcPeers;
-  Device public liveDevice;
-  Sensor [] public liveSensor;
+  mapping(address => uint) public liveDataTypelist;
   address dataTypeContract;
 
   // Constructor
@@ -44,89 +37,39 @@ contract heartChain {
   }
 
   /**
-   * @dev Function to register a hardware device
-   * @param deviceID string the mac or unique ID of the hardware.
-   * @param deviceFW string the hash of a storage location for the firmware file.
-   * @param sensorsIn Array the number of sensor on the hardware device.
-   * @return true bool if all the elements are saved.
+   * @dev Setup governance & voting for heartChain
+   * @param
+   * @dev need import a template governance contract
+   * @return true bool if the contract address setup.
    */
-  function registerDevice (string deviceID, string deviceFW, string [] sensorsIn) public returns(bool successful) {
-    liveDevice.identity = deviceID;
-    liveDevice.firmware = deviceFW;
-    for (uint i = 0; i < sensorsIn.length; i++) {
-      liveDevice.sensors.push(sensorsIn[i]);
-    }
+  function dataType () public returns(bool successful) {
+  	/* setup governance smart contract */
   	return true;
   }
 
   /**
-   * @dev Function to check hardware data saved
-   * @return liveDevice array of all the data.
-   */
-  function returnDevice() public constant returns(bool) {
-     return liveDevice;
-  }
-
-  /**
-   * @dev Function to reference dataType contract
-   * @param dataTypeContract  the contract address of the dataType
-   * @dev ideally want to couple this together not human used as link.
-   * @dev .
-   * @return true bool if all the contract address is saved.
-   */
-  function dataType (address dataTypeContract) public returns(bool successful) {
-  	liveSensor.datatype = dataTypeContract;
-  	return true;
-  }
-
-  /**
-   * @dev Function a data structure and linked to use
-   * @param sensorID keep tabs which data sensor is being used for what data structure
-   * @dev thinking each visualisation or ML procress need data in a certain format
-   * @dev function to keep track of these mappings.
-   * @return true bool if all the contract address is saved.
-   */
-  function dataStructure (string sensorID, string formatRequired) public returns(bool successful) {
-  	liveSensor[sensorID].stucture = formatRequired;
-  	return true;
-  }
-
-  /**
-   * @dev Function to state storage platform
-   * @param sensorID string  storage base location (need to consider privacy if required)
-   * @param storageHash string - hash address of content address
-   * @dev Each storage network will have certain properties these should also be linked to some how?
-   * @dev .
-   * @return true bool if all the contract address is saved.
-   */
-  function dataSource (string sensorID, string storageHash) public returns(bool successful) {
-  	liveSensor[sensorID].source = storageHash;
-  	return true;
-  }
-
-  /**
-   * @dev Function to provide access to coding to clean up or tidy data provided by the firmware on the device
-   * @param sensorID string  storage base location (need to consider privacy if required)
-   * @param hashTidy string - hash address of content address
    * @dev
-   * @dev .
+   * @param template DataType contract address
+   * @dev This will be current template contract consensus has been aggreed upon
+   * @dev Need to keep a log of the version and decision making history
    * @return true bool if all the contract address is saved.
    */
-  function dataTidy (string sensorID, string hashTidy) public returns(bool successful) {
-  	liveSensor[sensorID].tidy = hashTidy;
+  function dataType (address _dataTypeContract, byte32 _version) public returns(bool successful) {
+  	proposedDatatype = _dataTypeContract;
   	return true;
   }
 
   /**
-   * @dev Function to log on going compliance with the dataType asserted
-   * @param sensorID string  storage base location (need to consider privacy if required)
-   * @param Hashtimestamp string - hash address of content address
-   * @dev must be possible to include and prove the dataType contract is included in the package hash of the new data added.
-   * @dev .
+   * @dev  list of all accepted DataType i.e. pass governance and accepted
+   * @param string name of dataType
+   * @param address Smart Contract address for the dataType
+   * @param time the date the consensus vote accepted
+   * @dev also need to keep account of version
    * @return true bool if all the contract address is saved.
    */
-  function proofOfdata (string sensorID, string Hashtimestamp) public returns(bool successful) {
-  	liveSensor[sensorID].proof.push(Hashtimestamp);
+  function dataType (string _name, address _dataTypeContract, time _dateAccepted) public returns(bool successful) {
+  	liveDataTypelist[_dataTypeContract].name = _name;
+    liveDataTypelist[_dataTypeContract].name = _dateAccepted;
   	return true;
   }
 
