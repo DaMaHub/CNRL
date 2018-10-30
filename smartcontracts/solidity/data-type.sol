@@ -4,27 +4,27 @@ contract dataType {
 
   address genesis;
   bool live;
+  bytes32[] public bridgeData;
+
   struct dataType {
     string name,
-    string format
+    string spec
   }
 
-  struct chainLink {
+  struct dataLink {
     string name,
     string format
   }
-  address chainType;
-  dataType public liveDataType;
-  chainLInk public liveChains[]
 
+  dataType public liveDataType;
   // Constructor
    constructor() public {
     genesis = msg.sender;
   }
 
-  function liveDatatype () private returns(bool successful) {
-  	live = true;
-  	return true;
+  function setStatus () private returns(bool live) {
+  	live = false;
+  	return live;
   }
 
   function getDatatypeStatus() private constant returns(bool) {
@@ -39,9 +39,9 @@ contract dataType {
    * @dev .
    * @return true bool if all the contract address is saved.
    */
-  function registerDataType (string _name, string _format) private returns(bool) {
+  function registerDataType (string _name, string _spec) private returns(bool) {
     liveDataType.name = _name;
-    liveDataType.format = _format
+    liveDataType.spec = _spec
   	return true;
   }
 
@@ -53,25 +53,8 @@ contract dataType {
    * @dev Do we need to check these?
    * @return true bool if all the contract address is saved.
    */
-  function registerDataType (string _samas, string _uriResource) private returns(bool) {
-
-  	return true;
-  }
-
-  function returnDataType() private constant returns(bool) {
-     return true;
-  }
-
-  /**
-   * @dev Function to link to other Resolve connection to other scienceChains or other dataType within same Chain
-   * @param
-   * @param
-   * @dev .
-   * @dev .
-   * @return true bool if all the contract address is saved.
-   */
-  function dataResolution (address chainConnection) private returns(bool successful) {
-  	liveChains[] = chainConnection
+  function linkedData (string _samas, string _uriResource) private returns(bool) {
+    bridgeData.push(_samas, _uriResource)
   	return true;
   }
 

@@ -34,6 +34,31 @@ contract dataPackaging {
 
   }
 
+  /**
+   * @dev mapping actual data structure to datatype columns
+   * @param
+   * @param
+   * @dev
+   * @dev
+   * @return
+   */
+  function dataMapping () private returns(bool) {
+
+  }
+
+  /**
+   * @dev special / tidy data meaning
+   * @param
+   * @param
+   * @dev
+   * @dev
+   * @return
+   */
+  function dataSpecial () private returns(bool) {
+
+  }
+
+
   function remove() private {
     if (msg.sender == genesis){
       selfdestruct(genesis);

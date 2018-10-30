@@ -1,0 +1,129 @@
+<html>
+<head>
+  <title>heartChain experimental DAO</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="web3-1b.js"></script>
+</head>
+<body class="container">
+  <h1>heartChain Community Governance DAO - VOTING</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>heartChain - dataType</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+  </div>
+  <form id="vote-form" accept-charset="UTF-8">
+    <select id="candidate-options" name="candidate"></select>
+    <button onclick="handleVoteForCandidate()" type="button" class="btn btn-primary">Vote</button>
+  </form>
+
+<script>
+  var e;
+  if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+  web3.eth.defaultAccount = '0x0b3333b602de2a1e4b922e3c12f95fab2f68f5d6';
+
+// Define the address to search witin.  CHANGE TO PULIC ADDRESSS ACTIVE private/test/live network
+const addr = ('0x0b3333b602de2a1e4b922e3c12f95fab2f68f5d6')
+
+// Use Wb3 to get the balance of the address, convert it and then show it in the console.
+web3.eth.getBalance(addr, function (error, result) {
+	if (!error)
+    //console.log('blance -- ')
+    console.log(result)
+    //console.log('balance');
+		//console.log('Ether:', web3.utils.fromWei(result,'ether')); // Show the ether balance after converting it from Wei
+	else
+		console.log('Huston we have a promblem: ', error) // Should dump errors here
+});
+
+// deploy the contracts
+var abi = `[{"constant":false,"inputs":[{"name":"candidateNames","type":"bytes32[]"}],"name":"setupVoting","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"totalVotesFor","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"validCandidate","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"votesReceived","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"genesis","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidateList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"voteForCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getCandidateList","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]`;
+
+  var Jabi = JSON.parse(abi)
+  var liveContract = '0xf02f8cfA6a41346072D1C28Fac5A1b5Fa0708f46';
+  var myContract = new web3.eth.Contract(Jabi, liveContract);
+// console.log(myContract);
+    const voteName = 'first vote';
+    const voteDurationMins = 10;
+    myContract.methods.getCandidateList().call({from: addr}).then(function(receipt){
+        // receipt can also be a new contract instance, when coming fro
+        console.log('call back from');
+        console.log(receipt);
+        populateCandidates(receipt);
+    });
+
+  const tableElem = document.getElementById("table-body");
+  const candidateOptions = document.getElementById("candidate-options");
+  const voteForm = document.getElementById("vote-form");
+
+  function handleVoteForCandidate() {
+    console.log('click')
+    var cOpts = document.getElementById("candidate-options");
+    console.log(cOpts)
+    var candidateSelected = cOpts.options[cOpts.selectedIndex].text;
+    console.log(candidateSelected);
+    let makeByte32 = web3.utils.fromAscii(candidateSelected);
+    myContract.methods.voteForCandidate(makeByte32).send({from: addr}).then(function(receipt){
+        // receipt can also be a new contract instance, when coming fro
+        console.log('call back from');
+        console.log(receipt);
+        const votes =   myContract.methods.totalVotesFor(makeByte32).call({from:addr}).then(function(voteb){
+          //Updates the vote element.
+         console.log('voteb')
+         console.log(voteb)
+         console.log(candidateSelected)
+         document.getElementById("vote-" + candidateSelected).innerText = voteb;
+       });
+    });
+  }
+
+  // voteForm.addEventListener("submit", handleVoteForCandidate, false);
+
+  function populateCandidates(candidateList) {
+    // const candidateList = contractInstance.getCandidateList.call(); // call() is used for sync read only calls.
+    candidateList.forEach((candidate) => {
+      const candidateName = web3.utils.hexToAscii(candidate);
+      candidateNameStr = web3.utils.toUtf8(candidate);
+      // Creates a row element.
+      const rowElem = document.createElement("tr");
+
+      // Creates a cell element for the name.
+      const nameCell = document.createElement("td");
+      nameCell.innerText = candidateNameStr;
+      rowElem.appendChild(nameCell);
+      // Creates an option for each candidate
+      const candidateOption = document.createElement("option");
+      candidateOption.value = candidate;
+      candidateOption.innerText = candidateNameStr;
+      candidateOptions.appendChild(candidateOption);
+      const voteCell = document.createElement("td");
+      voteCell.id = "vote-" + candidateNameStr;
+
+      myContract.methods.totalVotesFor(candidate).call({from: addr}).then(function(receipt){
+        // receipt can also be a new contract instance, when coming fro
+        console.log('call back from VOTES TOTAL');
+        // Creates a cell element for the votes.
+
+        voteCell.innerText = receipt;
+        rowElem.appendChild(voteCell);
+
+        // Adds the new row to the voting table.
+        tableElem.appendChild(rowElem);
+
+      });
+    });
+  }
+</script>
+</body>
+</html>

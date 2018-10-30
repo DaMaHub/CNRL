@@ -43,14 +43,14 @@ contract dataType-flow {
 
   /**
    * @dev Function to provide access to coding to clean up or tidy data provided by the firmware on the device
-   * @param sensorID string  storage base location (need to consider privacy if required)
+   * @param dataSource string  storage base location (need to consider privacy if required)
    * @param hashTidy string - hash address of content address
    * @dev
    * @dev .
    * @return true bool if all the contract address is saved.
    */
-  function dataTidy (string sensorID, string hashTidy) public returns(bool successful) {
-  	liveSensor[sensorID].tidy = hashTidy;
+  function dataTidy (string _dataSource, string _hashTidy) public returns(bool successful) {
+  	
   	return true;
   }
 
