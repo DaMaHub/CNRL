@@ -50,7 +50,7 @@ contract dataType-flow {
    * @return true bool if all the contract address is saved.
    */
   function dataTidy (string _dataSource, string _hashTidy) public returns(bool successful) {
-  	
+
   	return true;
   }
 

@@ -1,0 +1,97 @@
+<html>
+<head>
+  <title>HeartChain Self Certified - DataFlow</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="web3-1b.js"></script>
+</head>
+<body class="container">
+  <h1>heartChain DataFlow</h1>
+<h1>BPM (Beats Per Minute)</h1>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<h2>BMP Data Flow</h2>
+<table class="tg">
+  <tr>
+    <th class="tg-0lax">Status</th>
+    <th class="tg-0lax">D-storage</th>
+    <th class="tg-0lax">address</th>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Verified</td>
+    <td class="tg-0lax">IPFS CID</td>
+    <td class="tg-0lax">9934394839843477348387</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Verified</td>
+    <td class="tg-0lax">IPFS CID</td>
+    <td class="tg-0lax">988343nf899dfdfe78dgd4f</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Verified</td>
+    <td class="tg-0lax">IPFS CID</td>
+    <td class="tg-0lax">o95sffgn9fw3dfdfdmu0jhft</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Verified</td>
+    <td class="tg-0lax">IPFS CID</td>
+    <td class="tg-0lax">877hgfddr04o6hu0s66lpms</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Verifed</td>
+    <td class="tg-0lax">IPFS CID</td>
+    <td class="tg-0lax">d08d77fjjdmdvooejjd8djd</td>
+  </tr>
+</table>
+
+<script>
+  if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+  web3.eth.defaultAccount = '0x0b3333b602de2a1e4b922e3c12f95fab2f68f5d6';
+
+// Define the address to search witin.  CHANGE TO PULIC ADDRESSS ACTIVE private/test/live network
+const addr = ('0x0b3333b602de2a1e4b922e3c12f95fab2f68f5d6')
+
+// Use Wb3 to get the balance of the address, convert it and then show it in the console.
+web3.eth.getBalance(addr, function (error, result) {
+	if (!error)
+    //console.log('blance -- ')
+    console.log(result)
+    //console.log('balance');
+		//console.log('Ether:', web3.utils.fromWei(result,'ether')); // Show the ether balance after converting it from Wei
+	else
+		console.log('Huston we have a promblem: ', error) // Should dump errors here
+});
+
+// deploy the contracts
+var abi = ``;
+
+  var Jabi = JSON.parse(abi)
+  var liveContract = '0x';
+  var myDatatype = new web3.eth.Contract(Jabi, liveContract);
+// console.log(myContract);
+
+  function submitProposal() {
+    console.log('click')
+    var cOpts = document.getElementById("add-hc-cfc");
+    console.log(cOpts)
+    var cOpts2 = document.getElementById("add-github-url");
+    console.log(cOpts2)
+    var cOpts3 = document.getElementById("add-sameas-url");
+    console.log(cOpts3)
+    myDatatype.methods.(cOpts).send({from: addr}).then(function(receipt){
+        // receipt can also be a new contract instance, when coming fro
+        console.log('call back from');
+        console.log(receipt);
+       });
+    };
+</script>
+</body>
+</html>

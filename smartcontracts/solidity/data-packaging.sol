@@ -31,7 +31,7 @@ contract dataPackaging {
    * @return
    */
   function packagingStructure () private returns(bool) {
-
+    // add dataTypes
   }
 
   /**

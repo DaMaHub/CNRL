@@ -53,8 +53,8 @@ contract dataType {
    * @dev Do we need to check these?
    * @return true bool if all the contract address is saved.
    */
-  function linkedData (string _samas, string _uriResource) private returns(bool) {
-    bridgeData.push(_samas, _uriResource)
+  function linkedData (bytes32[] _solidLinks) private returns(bool) {
+    bridgeData = _solidLinks;
   	return true;
   }
 
