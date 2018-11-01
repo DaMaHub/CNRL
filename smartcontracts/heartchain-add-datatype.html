@@ -63,24 +63,24 @@ web3.eth.getBalance(addr, function (error, result) {
 });
 
 // deploy the contracts
-var abi = ``;
+var abi = `[{"constant":true,"inputs":[],"name":"liveDataType","outputs":[{"name":"name","type":"string"},{"name":"spec","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"bridgeData","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getDatatypeStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_solidLinks","type":"bytes32[]"}],"name":"linkedData","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"setStatus","outputs":[{"name":"live","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_spec","type":"string"}],"name":"registerDataType","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]`;
 
   var Jabi = JSON.parse(abi)
-  var liveContract = '0x';
+  var liveContract = '0x526e0F6d031C46baf75F1fd5C188c9244c0E609A';
   var myDatatype = new web3.eth.Contract(Jabi, liveContract);
-// console.log(myContract);
+ console.log(myDatatype);
 
   function submitProposal() {
     console.log('click')
-    var cOpts = document.getElementById("add-hc-cfc");
+    var cOpts = document.getElementById("add-hc-cfc").value;
     console.log(cOpts)
-    var cOpts2 = document.getElementById("add-github-url");
+    var cOpts2 = document.getElementById("add-github-url").value;
     console.log(cOpts2)
-    var cOpts3 = document.getElementById("add-sameas-url");
+    var cOpts3 = document.getElementById("add-sameas-url").value;
     console.log(cOpts3)
-    var cOpts4 = document.getElementById("add-sameas-url2");
+    var cOpts4 = document.getElementById("add-sameas-url2").value;
     console.log(cOpts4)
-    var cOpts5 = document.getElementById("add-sameas-url3");
+    var cOpts5 = document.getElementById("add-sameas-url3").value;
     console.log(cOpts5)
     myDatatype.methods.registerDataType(cOpts, cOpts2).send({from: addr}).then(function(receipt){
         // receipt can also be a new contract instance, when coming fro
@@ -88,15 +88,15 @@ var abi = ``;
         console.log(receipt);
        });
 
-    let bytearry = [];
+    let bytearray = [];
     let makeByte31 = web3.utils.fromAscii(cOpts3);
     let makeByte32 = web3.utils.fromAscii(cOpts4);
     let makeByte33 = web3.utils.fromAscii(cOpts5);
     // console.log(makeByte32);
-    bytearry.push(makeByte31)
-    bytearry.push(makeByte32)
-    bytearry.push(makeByte33)
-    console.log(bytearry)
+    bytearray.push(makeByte31)
+    bytearray.push(makeByte32)
+    bytearray.push(makeByte33)
+    console.log(bytearray)
     myDatatype.methods.linkedData(bytearray).send({from: addr}).then(function(receipt){
         // receipt can also be a new contract instance, when coming fro
         console.log('call back from');

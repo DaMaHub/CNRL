@@ -7,13 +7,13 @@ contract dataType {
   bytes32[] public bridgeData;
 
   struct dataType {
-    string name,
-    string spec
+    string name;
+    string spec;
   }
 
   struct dataLink {
-    string name,
-    string format
+    string name;
+    string formatdetail;
   }
 
   dataType public liveDataType;
@@ -22,38 +22,38 @@ contract dataType {
     genesis = msg.sender;
   }
 
-  function setStatus () private returns(bool live) {
+  function setStatus () public returns(bool live) {
   	live = false;
   	return live;
   }
 
-  function getDatatypeStatus() private constant returns(bool) {
+  function getDatatypeStatus() public constant returns(bool) {
      return live;
   }
 
   /**
    * @dev Set the DataType
-   * @param  Name
-   * @param  Format
-   * @dev  how the dataType will be described
-   * @dev .
-   * @return true bool if all the contract address is saved.
+   * Name
+   *   Format
+   *   how the dataType will be described
+   *  .
+   *  true bool if all the contract address is saved.
    */
-  function registerDataType (string _name, string _spec) private returns(bool) {
+  function registerDataType (string _name, string _spec) public returns(bool) {
     liveDataType.name = _name;
-    liveDataType.spec = _spec
+    liveDataType.spec = _spec;
   	return true;
   }
 
   /**
-   * @dev Function capture in JSON LD dataType and links to sources
-   * @param
-   * @param
-   * @dev sameAs  semantic implement via a smart contract.
-   * @dev Do we need to check these?
-   * @return true bool if all the contract address is saved.
+   *  Function capture in JSON LD dataType and links to sources
+   *
+   *
+   *  sameAs  semantic implement via a smart contract.
+   *  Do we need to check these?
+   *  true bool if all the contract address is saved.
    */
-  function linkedData (bytes32[] _solidLinks) private returns(bool) {
+  function linkedData (bytes32[] _solidLinks) public returns(bool) {
     bridgeData = _solidLinks;
   	return true;
   }
