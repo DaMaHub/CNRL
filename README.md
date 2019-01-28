@@ -1,5 +1,5 @@
-# heartchain
-a computational reference layer for heart science
+# CNRL  Computational Network Reference Layer
+experimental ideas to guarantee identifiers, dataPackaging and coordinate computations. 
 
 A proof of concept implementation of daMaHub minimum metadata and packaging
 ---------------------------------------------------------------------------
